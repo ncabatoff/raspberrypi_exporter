@@ -68,3 +68,9 @@ for MEM_COMPONENT in "${MEM_COMPONENTS[@]}"; do
   echo "${PREFIX}memory_bytes{component=\"${MEM_COMPONENT}\"} ${MEM}"
 done
 
+# get throttled
+{
+  echo "# HELP ${PREFIX}throttled Bitmask of vcgencmd get_throttled.";
+  echo "# TYPE ${PREFIX}throttled gauge";
+}
+echo "${PREFIX}throttled $($VCGEN get_throttled |sed s/throttled=0x//)"
